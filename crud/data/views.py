@@ -84,7 +84,6 @@ def addData(request):
 def dashboard(request):
     currentUser = request.user
     datas = Data.objects.filter(owner=currentUser)
-
     return render(
         request,
         "data/dashboard.html",
@@ -119,5 +118,35 @@ def saveData(request):
         return HttpResponseRedirect(reverse("index"))
 
 
+@login_required(login_url="/login/")  # Add
 def editData(request, id):
-    pass
+    data = Data.objects.get(pk=id)
+    return render(
+        request,
+        "data/edit.html",
+        {
+            "data": data,
+        },
+    )
+
+
+@login_required(login_url="/login/")  # Add
+def saveEdit(request, id):
+    data = Data.objects.get(pk=id)
+    if request.method == "POST":
+        data.firstname = request.POST.get("firstname", data.firstname)
+        data.lastname = request.POST.get("lastname", data.lastname)
+        data.email = request.POST.get("email", data.email)
+        data.phone = request.POST.get("phone", data.phone)
+        data.city = request.POST.get("city", data.city)
+        data.country = request.POST.get("country", data.country)
+        data.save()
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return HttpResponseRedirect(reverse("index"))
+
+
+def deleteData(request, id):
+    data = Data.objects.get(pk=id)
+    data.delete()
+    return HttpResponseRedirect(reverse("dashboard"))

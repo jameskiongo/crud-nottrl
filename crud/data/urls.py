@@ -11,4 +11,6 @@ urlpatterns = [
     path("addData", views.addData, name="addData"),
     path("saveData", views.saveData, name="saveData"),
     path("editData/<int:id>", views.editData, name="editData"),
+    path("deleteData/<int:id>", views.deleteData, name="deleteData"),
+    path("saveEdit/<int:id>", views.saveEdit, name="saveEdit"),
 ]
