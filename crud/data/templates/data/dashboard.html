@@ -1,0 +1,45 @@
+{% extends "data/layout.html" %}
+{% block body %}
+{% if user.is_authenticated %}
+<section class="bg-white dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 h-full dark:bg-gray-900">
+    <div class="max-w-screen-md mb-8 lg:mb-16">
+      <a href="{% url 'addData' %}"
+                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Data</a>
+    </div>
+    <div class="relative overflow-x-auto">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">First Name</th>
+            <th scope="col" class="px-6 py-3">Last Name</th>
+            <th scope="col" class="px-6 py-3">Email</th>
+            <th scope="col" class="px-6 py-3">Phone</th>
+            <th scope="col" class="px-6 py-3">City</th>
+            <th scope="col" class="px-6 py-3">Country</th>
+            <th scope="col" class="px-6 py-3">Created at</th>
+            <th scope="col" class="px-6 py-3">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in datas%}
+          <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+            <th scope="row"
+                                    class="px-6 py-4 font-medium capitalize text-gray-900 whitespace-nowrap dark:text-white">
+              {{ data.firstname }}
+            </th>
+            <td class="px-6 py-4 capitalize">{{ data.lastname }}</td>
+            <td class="px-6 py-4 capitalize">{{ data.email }}</td>
+            <td class="px-6 py-4 capitalize">{{ data.phone }}</td>
+            <td class="px-6 py-4 capitalize">{{ data.city }}</td>
+            <td class="px-6 py-4 capitalize">{{ data.country }}</td>
+            <td class="px-6 py-4 capitalize">{{ data.created }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endif%}
+{% endblock %}
